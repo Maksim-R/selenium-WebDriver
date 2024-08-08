@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace csharp_example
 {
     [TestFixture]
-    internal class Login
+    internal class Task_3
     {
         private IWebDriver driver;
         private WebDriverWait wait;
