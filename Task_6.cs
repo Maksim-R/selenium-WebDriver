@@ -33,7 +33,7 @@ namespace csharp_example
             driver.Quit();
             driver = null;
         }
-        
+
         [Test]
         public void MenuItems_HaveH1Header()
         {
@@ -95,6 +95,10 @@ namespace csharp_example
             {
                 var h1 = driver.FindElement(By.XPath("//h1"));
                 return true;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return IsH1HeaderPresent();
             }
             catch (NoSuchElementException)
             {
