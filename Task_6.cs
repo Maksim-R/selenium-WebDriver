@@ -36,13 +36,13 @@ namespace csharp_example
             IWebElement menu = driver.FindElement(By.XPath("//ul[@id='box-apps-menu']"));
 
             // Ищем все пункты меню
-            IList<IWebElement> menuItems = menu.FindElements(By.XPath(".//li"));
+            IList<IWebElement> menuItems = menu.FindElements(By.XPath("//li"));
 
             // Обрабатываем каждый пункт меню
             foreach (IWebElement menuItem in menuItems)
             {
                 // Ищем ссылку в пункте меню
-                IWebElement link = menuItem.FindElement(By.XPath(".//a"));
+                IWebElement link = menuItem.FindElement(By.XPath("//a"));
 
                 // Кликаем по ссылке
                 link.Click();
@@ -54,7 +54,7 @@ namespace csharp_example
                 try
                 {
                     IWebElement subMenu = menuItem.FindElement(By.XPath(".//ul[@class='docs']"));
-                    IList<IWebElement> subMenuItems = subMenu.FindElements(By.XPath(".//li"));
+                    IList<IWebElement> subMenuItems = subMenu.FindElements(By.XPath("//li"));
 
                     foreach (IWebElement subMenuItem in subMenuItems)
                     {
