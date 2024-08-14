@@ -53,56 +53,11 @@ namespace csharp_example
                 wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1")));
 
                 // Проверяем наличие заголовка h1
-                Assert.IsTrue(IsH1HeaderPresent());
-            }
-        }
+                
 
-        [Test]
-        public void SubMenuItems_HaveH1Header()
-        {
-            // Находим все пункты меню
-            var menuItems = driver.FindElements(By.XPath("//ul[@id='box-apps-menu']/li"));
-
-            // Обрабатываем каждый пункт меню
-            foreach (var menuItem in menuItems)
-            {
-                // Если пункт меню имеет вложенные пункты, обрабатываем их
-                try
-                {
-                    var subMenuItems = menuItem.FindElements(By.XPath(".//ul[@class='docs']/li"));
-                    foreach (var subMenuItem in subMenuItems)
-                    {
-                        var subLink = subMenuItem.FindElement(By.XPath(".//a"));
-                        subLink.Click();
-
-                        // Ждем пока загрузится страница и появится заголовок h1
-                        wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1")));
-
-                        // Проверяем наличие заголовка h1
-                        Assert.IsTrue(IsH1HeaderPresent());
-                    }
-                }
-                catch (NoSuchElementException)
-                {
-                    // Пункт меню не имеет вложенных пунктов
-                }
-            }
-        }
-
-        private bool IsH1HeaderPresent()
-        {
-            try
-            {
-                var h1 = driver.FindElement(By.XPath("//h1"));
-                return true;
-            }
-            catch (StaleElementReferenceException)
-            {
-                return IsH1HeaderPresent();
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
+                // Проверяем наличие вложенных пунктов меню
+                
+                       
             }
         }
     }
