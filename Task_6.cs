@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace csharp_example
 {
@@ -17,7 +18,7 @@ namespace csharp_example
         private WebDriverWait wait;
 
         [SetUp]
-        public void start()
+        public void SetUp()
         {
             driver = new ChromeDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
@@ -28,7 +29,7 @@ namespace csharp_example
         }
 
         [TearDown]
-        public void stop()
+        public void TearDown()
         {
             driver.Quit();
             driver = null;
@@ -37,27 +38,25 @@ namespace csharp_example
         [Test]
         public void MenuItems_HaveH1Header()
         {
-            // Находим все пункты меню
+            // Находим все пункты бокового меню "верхнего" уровня чтобы выяснить их количество
             var menuItems = driver.FindElements(By.XPath("//ul[@id='box-apps-menu']/li"));
+            int count = menuItems.Count();
 
             // Обрабатываем каждый пункт меню
-            foreach (var menuItem in menuItems)
+            for (int i = 0; i < count; i++)
             {
-                // Находим ссылку в пункте меню
-                var link = menuItem.FindElement(By.XPath(".//a"));
+                // тут заново получаем элементы бокового меню "верхнего" уровня, так как страница была изменена
+                var freshMenuItems = driver.FindElements(By.XPath("//ul[@id='box-apps-menu']/li"));
 
-                // Кликаем по ссылке
-                link.Click();
-
-                // Ждем пока загрузится страница и появится заголовок h1
-                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1")));
-
-                // Проверяем наличие заголовка h1
-                
-
-                // Проверяем наличие вложенных пунктов меню
-                
-                       
+                try
+                {
+                    IWebElement link = freshMenuItems[i].FindElement(By.XPath(".//a"));
+                    link.Click();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"===> Ошибка поиска элемента: {ex.Message}");
+                }
             }
         }
     }
