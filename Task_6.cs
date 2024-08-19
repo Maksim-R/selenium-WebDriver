@@ -47,16 +47,19 @@ namespace csharp_example
             {
                 // тут заново получаем элементы бокового меню "верхнего" уровня, так как страница была изменена
                 var freshMenuItems = driver.FindElements(By.XPath("//ul[@id='box-apps-menu']/li"));
-
-                try
-                {
+                                
                     IWebElement link = freshMenuItems[i].FindElement(By.XPath(".//a"));
+                    Debug.WriteLine(link.TagName);
                     link.Click();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"===> Ошибка поиска элемента: {ex.Message}");
-                }
+                    var h_1 = driver.FindElement(By.XPath("//h1"));
+                    List <IWebElement> otherFreshMenuItems = driver.FindElements(By.XPath("//ul[@class='docs']//a")).ToList();
+                    Debug.WriteLine($"===> Количество элементов: {otherFreshMenuItems.Count}");
+                    for (int j = 0; j < otherFreshMenuItems.Count; j++)
+                    {
+                        List<IWebElement> subFreshMenuItems = driver.FindElements(By.XPath("//ul[@class='docs']//a")).ToList();
+                        subFreshMenuItems[j].Click();
+                        var h1 = driver.FindElement(By.XPath("//h1"));
+                    }                    
             }
         }
     }
