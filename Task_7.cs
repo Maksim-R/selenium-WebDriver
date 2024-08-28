@@ -47,7 +47,7 @@ namespace csharp_example
             // Проверить каждый товар
             foreach (var box in boxList)
             {
-                List<IWebElement> cardList = box.FindElements(By.XPath(".//li[@class='product column shadow hover-light']")).ToList();
+                List<IWebElement> cardList = box.FindElements(By.XPath(".//li[contains(@class, 'product')]")).ToList();
 
                 foreach (var card in cardList)
                 {
